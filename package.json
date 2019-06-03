@@ -1,0 +1,17 @@
+{
+  "name": "super_quiz_demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "hoangdv <hoang.dv@outlook.com> (https://codetheworld.io/)",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "body-parser": "latest"
+  }
+}
