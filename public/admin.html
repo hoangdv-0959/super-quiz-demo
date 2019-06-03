@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Super Quiz</title>
+  <link rel="stylesheet" href="./css/bootstrap.min.css">
+
+</head>
+<body>
+<main class="container">
+  <div class="jumbotron">
+    <h1 class="display-4">Super Quiz System</h1>
+    <hr class="my-4">
+    <div class="card">
+      <div id="main-content" class="card-body">
+        <h5 class="card-title">Create question</h5>
+        <form id="form-create">
+          <div class="form-group">
+            <label for="input-question">Question</label>
+            <input required type="text" class="form-control" id="input-question" placeholder="Enter question">
+          </div>
+          <div class="form-group">
+            <label for="input-answer">Answer</label>
+            <input required type="number" class="form-control" id="input-answer" placeholder="Answer">
+          </div>
+          <button type="submit" class="btn btn-primary">Create</button>
+        </form>
+        <div id="message" class="alert" role="alert">
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script src="./js/jquery-3.4.1.min.js"></script>
+<script src="./js/app-admin.js"></script>
+</body>
+</html>

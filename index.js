@@ -43,9 +43,19 @@ app.get('/', (req, res) => {
   res.redirect('/index.html');
 });
 
+app.get('/admin', (req, res) => {
+  res.redirect('/admin.html');
+});
+
 app.get('/questions', (req, res) => {
   const question = getRandomQuestion();
   res.json(question);
+});
+
+app.post('/questions', (req, res) => {
+  const id = Date.now() + '';
+  QUESTION_DATA[id] = req.body;
+  res.json(QUESTION_DATA[id]);
 });
 
 app.post('/questions/submit/:id/', (req, res) => {
