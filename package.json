@@ -11,7 +11,8 @@
   "author": "hoangdv <hoang.dv@outlook.com> (https://codetheworld.io/)",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "latest",
     "express": "^4.17.1",
-    "body-parser": "latest"
+    "multer": "^1.4.1"
   }
 }

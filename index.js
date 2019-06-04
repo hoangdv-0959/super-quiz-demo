@@ -4,6 +4,23 @@ const port = process.env.PORT || 5000;
 
 const bodyParser = require('body-parser');
 
+const multer  = require('multer');
+const fs = require('fs');
+
+// SET STORAGE
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads')
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.fieldname + '-' + Date.now() + '.' + file.originalname.split('.').pop());
+  }
+});
+
+app.use('/uploads', express.static('uploads'));
+
+const upload = multer({ storage: storage });
+
 const QUESTION_DATA = {
   '001': {
     question: '1 + 1 = ?',
@@ -66,5 +83,49 @@ app.post('/questions/submit/:id/', (req, res) => {
   const success = question.answer === parseInt(answer);
   res.json({success});
 });
+
+// List all file
+app.get('/files', (req, res) =>{
+  fs.readdir('./uploads/', (err, files) => {
+    const data = [];
+    files.forEach(file => {
+      if (file === '.keepme') {
+        return;
+      }
+      data.push({
+        name: file,
+        path: `uploads/${file}`
+      });
+    });
+    res.json(data)
+  });
+});
+
+// Uploading a Single File
+app.post('/upload', upload.single('my_file'), (req, res, next) => {
+  const file = req.file;
+  if (!file) {
+    return res.status(400).json({
+      message: 'Please upload a file',
+    })
+  }
+  res.send({
+    success: true,
+    filePath: file.path,
+    size: formatBytes(file.size),
+  })
+});
+
+function formatBytes(bytes, decimals = 2) {
+  if (bytes === 0) return '0 Bytes';
+
+  const k = 1024;
+  const dm = decimals < 0 ? 0 : decimals;
+  const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+
+  return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+}
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
